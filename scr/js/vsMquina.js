@@ -1,7 +1,8 @@
 let cuadro = document.getElementsByClassName("cuadro");
 const btnReiniciar = document.getElementById("btnReiniciar");
-const btnVsMaquina = document.getElementById("btnVsMaquina");
-
+let listaVacia = [];
+let listaOcupada =[];
+let listaRestante =[];
 
 const ganar = [
     [0, 4, 8],  
@@ -18,23 +19,26 @@ let player1 = true;
 
 
 for (let index = 0; index < cuadro.length; index++) {
+    listaVacia.push(index)
     cuadro[index].addEventListener("click", function () {
         if (cuadro[index].textContent != "") {
             alert("¡Está lleno el espacio!"); 
         } else {
-            if (player1 === true) {
-                cuadro[index].textContent = "X";
-                console.log("click", index + "");
-                player1 = false;
-            } else {
-                cuadro[index].textContent = "O";
-                console.log("click", index + "");
-                player1 = true;
-            }
+            cuadro[index].textContent = "X";
+            listaOcupada.push(index)
+            listaRestante = listaVacia.filter(el => !listaOcupada.includes(el));
+            maquina()
             cargaDeGanadores();
         }
     });
 }
+
+
+function maquina() {
+    let rival = listaRestante[Math.floor(Math.random() * listaRestante.length)];
+    cuadro[rival].textContent = "O";
+    }
+
 
 function cargaDeGanadores() {
     for (let i = 0; i < ganar.length; i++) {
@@ -55,30 +59,6 @@ btnReiniciar.addEventListener("click", function () {
         cuadro[index].textContent = "";
     }
     alert("Partida Nueva");
-    for (let index = 0; index < cuadro.length; index++) {
-        cuadro[index].addEventListener("click", function () {
-            if (cuadro[index].textContent != "") {
-                alert("¡Está lleno el espacio!");
-            } else {
-                if (player1 === true) {
-                    cuadro[index].textContent = "X";
-                    console.log("click", index + "");
-                    player1 = false;
-                } else {
-                    cuadro[index].textContent = "O";
-                    console.log("click", index + "");
-                    player1 = true;
-                }
-                cargaDeGanadores();
-            }
-        });
-    }
+    
 });
 
-
-//Botones para jugar 1vs1 o con la máquina..
-btnVsMaquina.addEventListener("click" , function () {
-    
-
-
-})

@@ -44,5 +44,13 @@ body{
 #btnReiniciar1{
     justify-content: center;
     text-align: center;
+    
+}
+
+
+#btnVsMaquina{
+
+border: solid black 2px;
+text-decoration: solid;
 }
 
